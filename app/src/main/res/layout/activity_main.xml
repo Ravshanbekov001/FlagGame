@@ -24,7 +24,7 @@
             android:layout_margin="15dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toTopOf="@id/card_ansver"
+            app:layout_constraintBottom_toTopOf="@id/card_answer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +38,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_ansver"
+            android:id="@+id/card_answer"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="15dp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/card_flag">
 
             <TextView
-                android:id="@+id/txt_ansver"
+                android:id="@+id/txt_answer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -70,7 +70,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_ansver">
+            app:layout_constraintTop_toBottomOf="@id/card_answer">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_1"

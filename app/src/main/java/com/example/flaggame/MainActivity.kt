@@ -3,11 +3,11 @@ package com.example.flaggame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import flags.Flag
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random.Default.nextInt
@@ -65,17 +65,38 @@ class MainActivity : AppCompatActivity() {
         btn_11.setOnClickListener { clickBtn(btn_11, txt11, txt11.text.toString()) }
         btn_12.setOnClickListener { clickBtn(btn_12, txt12, txt12.text.toString()) }
 
+        txt_answer.setOnClickListener {
+            back()
+        }
 
-        randomFlag()
+
+        val animation = AnimationUtils.loadAnimation(this, R.anim.flag_anim)
+        card_flag.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {
+                randomFlag()
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+        })
         addRandomLetters()
     }
+
 
     private fun clickBtn(cardView: CardView, textView: TextView, text: String) {
         txtAnswer += text
         textView.text = text
-        txt_ansver.text = txtAnswer
+        txt_answer.text = txtAnswer
 
         if (txtAnswer.length == flagArrayList[position].name?.length) {
+
             if (txtAnswer == flagArrayList[position].name) {
                 Toast.makeText(this, "True!", Toast.LENGTH_SHORT).show()
 
@@ -83,23 +104,42 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "False!", Toast.LENGTH_SHORT).show()
 
             }
+
+            val animation = AnimationUtils.loadAnimation(this, R.anim.flag_anim)
+            card_flag.startAnimation(animation)
+
+            animation.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+                    randomFlag()
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+            })
+
             setVisibility()
-
-            randomFlag()
             addRandomLetters()
+
             txtAnswer = ""
-            txt_ansver.text = ""
+            txt_answer.text = ""
 
-
+        } else {
+            cardView.visibility = View.INVISIBLE
         }
-        cardView.visibility = View.INVISIBLE
-
     }
 
 
     private fun randomFlag() {
+
         position = nextInt(flagArrayList.size)
         img_flag.setImageResource(flagArrayList[position].image!!)
+
+
     }
 
 
@@ -167,5 +207,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun back() {
+        val str = txt_answer.text.toString()
 
+        if (str.isNotEmpty()) {
+
+            val c = str[str.length - 1]
+
+            for (i in 0..11) {
+
+                if (answerLetters[i] == c) {
+                    getCardView(i).visibility = View.VISIBLE
+                }
+            }
+
+            txtAnswer = str.substring(0, str.length - 1)
+            txt_answer.text = txtAnswer
+
+            if (txt_answer.text.isEmpty()) {
+                txtAnswer = ""
+            }
+        }
+    }
 }
